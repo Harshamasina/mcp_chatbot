@@ -13,7 +13,7 @@ docs = {
     "spec.txt": "These specifications define the technical requirements for the equipment.",
 }
 
-# TODO: Write a tool to read a doc
+#Write a tool to read a doc
 @mcp.tool(
     name="read_doc_contents",
     description="Read the contents of a document and return it as a string."
@@ -24,10 +24,26 @@ def read_document(doc_id: str = Field(description="Id of the document to read"))
     return docs[doc_id]
 
 
-# TODO: Write a tool to edit a doc
+#Write a tool to edit a doc
+@mcp.tool(
+    name="edit_document",
+    description="Edit a document by replacing a string in the documents content with a new string"
+)
+def edit_document(
+    doc_id:str = Field(description="Id of document that will be edited"),
+    old_str:str = Field(description="Text to replace. Must mach exactly, including whitespace"),
+    new_str:str = Field(description="The new text in place of old text")
+):
+    if doc_id not in docs:
+        raise ValueError(f"Doc with id {doc_id} not found!")
+    docs[doc_id] = docs[doc_id].replace(old_str, new_str)
+
 # TODO: Write a resource to return all doc id's
+
 # TODO: Write a resource to return the contents of a particular doc
+
 # TODO: Write a prompt to rewrite a doc in markdown format
+
 # TODO: Write a prompt to summarize a doc
 
 
